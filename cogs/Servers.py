@@ -64,7 +64,7 @@ class Servers(commands.Cog):
         err = ""
         try:
             guild = await self.bot.fetch_guild(server_id)
-            #await guild.leave()
+            await guild.leave()
         except Exception as e:
             err = "Но произошла ошибка при выходе из сервера: \n" + str(e)
         del data[server_id]
