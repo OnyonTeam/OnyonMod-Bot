@@ -19,7 +19,7 @@ class Servers(commands.Cog):
         await interaction.response.defer()
 
         try:
-            guild = await self.client.fetch_guild(server_id)
+            guild = await self.bot.fetch_guild(server_id)
             channel = await guild.fetch_channel(channel_id)
         except Exception as e:
             embed = discord.Embed(title = "Произошла ошибка! \nОшибка:\n" + str(e))
@@ -63,7 +63,7 @@ class Servers(commands.Cog):
             return
         err = ""
         try:
-            guild = await self.client.fetch_guild(server_id)
+            guild = await self.bot.fetch_guild(server_id)
             #await guild.leave()
         except Exception as e:
             err = "Но произошла ошибка при выходе из сервера: \n" + str(e)
