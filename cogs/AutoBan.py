@@ -31,21 +31,16 @@ class AutoBan(commands.Cog):
             return
 
         if action == "статус":
-            yes_or_no = "выключен"
-            if data[str(interaction.guild_id)]["AutoBan"]:
-                yes_or_no = "включён"
-            embed = discord.Embed(title = "Автобан сейчас " + str(yes_or_no))
+            action = {True: "включен", False: "выключен"}[data[str(interaction.guild_id)]["AutoBan"]]
+            embed = discord.Embed(title = "Автобан сейчас " + action)
             await interaction.followup.send(embed=embed)
             return
 
-        action = {"включить": True, "выключить": False}[action]
-        data[str(interaction.guild_id)]["AutoBan"] = action
+        action = {"включить": [True, "включен"], "выключить": [False, "выключен"]}[action]
+        data[str(interaction.guild_id)]["AutoBan"] = action[0]
         json.dump(data, open('servers.json', 'w'))
 
-        yes_or_no = "выключен"
-        if action:
-            yes_or_no = "включён"
-        embed = discord.Embed(title = "Автобан был успешно " + yes_or_no)
+        embed = discord.Embed(title = "Автобан был успешно " + action[1])
         await interaction.followup.send(embed=embed)
     
 async def setup(bot): # a extension must have a setup function
